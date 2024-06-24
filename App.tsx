@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
 
-export default function App() {
+const App = (): JSX.Element => {
+  const text: string = 'hello' // spasi yang tidak perlu dan tanda kutip ganda
+  const text2: string = 'progate' // tanda kutip tunggal
+
+  if (text == 'hello') {
+    // Tidak ada spasi setelah if
+    console.log(text)
+  }
+
+  const hello = (name: string): void => {
+    console.log('hi', name) // 4 indentasi
+  }
+
+  const numbers = [1, 2, 3] // Tidak ada spasi antar element array
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <div>
+      <h1>Hello Progate</h1>
+    </div>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
