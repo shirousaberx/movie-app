@@ -1,25 +1,11 @@
 import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import BottomTabNavigator from './src/navigations/BottomTabNavigation'
 
-const App = (): JSX.Element => {
-  const text: string = 'hello' // spasi yang tidak perlu dan tanda kutip ganda
-  const text2: string = 'progate' // tanda kutip tunggal
-
-  if (text == 'hello') {
-    // Tidak ada spasi setelah if
-    console.log(text)
-  }
-
-  const hello = (name: string): void => {
-    console.log('hi', name) // 4 indentasi
-  }
-
-  const numbers = [1, 2, 3] // Tidak ada spasi antar element array
-
+export default function App(): JSX.Element {
   return (
-    <div>
-      <h1>Hello Progate</h1>
-    </div>
+    <NavigationContainer>
+      <BottomTabNavigator />
+    </NavigationContainer>
   )
 }
-
-export default App
