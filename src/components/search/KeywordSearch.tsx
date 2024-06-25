@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native'
 import MovieItem from '../movies/MovieItem'
 import { Feather } from '@expo/vector-icons'
-import { API_ACCESS_TOKEN } from '@env'
 
 const posterImageSize = {
   width: 100,
@@ -20,7 +19,7 @@ const KeywordSearch = () => {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${API_ACCESS_TOKEN}` 
+        Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_ACCESS_TOKEN}` 
       }
     };
 

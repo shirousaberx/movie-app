@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { API_ACCESS_TOKEN } from '@env'
 import { StackActions, useNavigation } from '@react-navigation/native'
 
 const GenreItem = ({genre}) => {
@@ -49,7 +48,7 @@ const CategorySearch = () => {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${API_ACCESS_TOKEN}`
+        Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_ACCESS_TOKEN}`
       }
     };
 

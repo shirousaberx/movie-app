@@ -1,4 +1,3 @@
-import { API_ACCESS_TOKEN } from '@env'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import { Movie, MovieListProps } from '../types/app'
@@ -238,7 +237,7 @@ const MovieDetail = ({ route }: any): JSX.Element => {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${API_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_ACCESS_TOKEN}`,
       },
     }
 

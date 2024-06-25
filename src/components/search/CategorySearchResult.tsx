@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native'
-import { API_ACCESS_TOKEN } from '@env'
 import MovieItem from '../movies/MovieItem'
 
 const posterImageSize = {
@@ -24,7 +23,7 @@ const CategorySearchResult = ({route}) => {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${API_ACCESS_TOKEN}` 
+        Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_ACCESS_TOKEN}` 
       }
     };
 

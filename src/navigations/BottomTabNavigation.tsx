@@ -8,7 +8,7 @@ import FavoriteStackNavigator from './FavoriteStackNavigation'
 const Tab = createBottomTabNavigator()
 
 const BottomTabNavigator = (): JSX.Element => (
-  <Tab.Navigator initialRouteName='SearchStackNavigation'>
+  <Tab.Navigator initialRouteName='HomeStackNavigation'>
     <Tab.Screen
       name="HomeStackNavigation"
       component={HomeStackNavigator}
