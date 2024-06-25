@@ -16,6 +16,9 @@ const HomeStackNavigator = () => {
       <Stack.Screen 
         name="MovieDetail" 
         component={MovieDetail} 
+        options={{
+          title: 'Movie Detail',
+        }}
       />
     </Stack.Navigator>
   )

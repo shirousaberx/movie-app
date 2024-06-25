@@ -13,6 +13,7 @@ const BottomTabNavigator = (): JSX.Element => (
       name="HomeStackNavigation"
       component={HomeStackNavigator}
       options={{
+        title: 'Home',
         tabBarIcon: ({ color }) => (
           <Feather name="home" size={28} color={color} />
         ),
