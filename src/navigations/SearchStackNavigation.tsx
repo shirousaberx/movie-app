@@ -1,7 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Search from '../screens/Search';
-import CategorySearchResult from '../components/search/CategorySearch';
+import CategorySearchResult from '../components/search/CategorySearchResult';
 import MovieDetail from '../screens/MovieDetail';
 
 const Stack = createNativeStackNavigator();

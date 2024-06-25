@@ -54,21 +54,21 @@ const Favorite = (): JSX.Element => {
     <View style={styles.container}>
       { favoriteExists ? (
         <FlatList 
-        data={movieList}
-        renderItem={
-          ({ item }) => (
-            <MovieItem 
-              movie={item} 
-              size={posterImageSize} 
-              coverType='poster' 
-              backgroundImageStyle={styles.backgroundImageStyle}
-            />
-          )
-        }
-        numColumns={3}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-      />) : (
+          data={movieList}
+          renderItem={
+            ({ item }) => (
+              <MovieItem 
+                movie={item} 
+                size={posterImageSize} 
+                coverType='poster' 
+                backgroundImageStyle={styles.backgroundImageStyle}
+              />
+            )
+          }
+          numColumns={3}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+        />) : (
         <Text>No Favorite</Text>
       )}
     </View>

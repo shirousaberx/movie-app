@@ -1,6 +1,5 @@
 import React from 'react'
 import { ImageBackground, Text, StyleSheet, View, TouchableOpacity } from 'react-native'
-import type { MovieItemProps } from '../../types/app'
 import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation, StackActions } from '@react-navigation/native'

@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native'
 import MovieItem from '../movies/MovieItem'
 import { Feather } from '@expo/vector-icons'
+import { API_ACCESS_TOKEN } from '@env'
 
 const posterImageSize = {
   width: 100,
@@ -16,13 +15,12 @@ const KeywordSearch = () => {
   const [isFound, setIsFound] = useState(true)  // to denote if there movie from search keyword
 
   const searchMovie = () => {
-    console.log('keyword: ', keyword)
     const url = `https://api.themoviedb.org/3/search/movie?query=${keyword.trim()}&include_adult=false&language=en-US&page=1`;
     const options = {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjOWEzZjE3M2E0OTZkNDAwYzg0ODVmZThiODk2NjcxYyIsIm5iZiI6MTcxOTIzODUxNC4xNzcwNjcsInN1YiI6IjY2Nzk3YTE2NzYwOGMyZjBjNTdjMWYwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.p8mrbBto96RNKq9PMDNUXvBmpOUnA2jmsZoZsdtG96o'
+        Authorization: `Bearer ${API_ACCESS_TOKEN}` 
       }
     };
 
