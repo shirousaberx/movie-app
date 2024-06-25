@@ -5,10 +5,39 @@ import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation, StackActions } from '@react-navigation/native'
 
-const MovieItem = ({ movie, size, coverType }: MovieItemProps): JSX.Element => {
+const MovieItem = ({ movie, size, coverType, backgroundImageStyle }): JSX.Element => {
   const navigation = useNavigation()
   const pushAction = StackActions.push('MovieDetail', { id: movie.id })
   
+  const styles = StyleSheet.create({
+    backgroundImage: {
+      ...backgroundImageStyle
+    },
+    backgroundImageStyle: {
+      borderRadius: 8,
+    },
+    movieTitle: {
+      color: 'white',
+    },
+    gradientStyle: {
+      padding: 8,
+      height: '100%',
+      width: '100%',
+      borderRadius: 8,
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 2,
+    },
+    rating: {
+      color: 'yellow',
+      fontWeight: '700',
+    },
+  })
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -40,34 +69,5 @@ const MovieItem = ({ movie, size, coverType }: MovieItemProps): JSX.Element => {
     </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    marginRight: 4,
-  },
-  backgroundImageStyle: {
-    borderRadius: 8,
-  },
-  movieTitle: {
-    color: 'white',
-  },
-  gradientStyle: {
-    padding: 8,
-    height: '100%',
-    width: '100%',
-    borderRadius: 8,
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
-  rating: {
-    color: 'yellow',
-    fontWeight: '700',
-  },
-})
 
 export default MovieItem

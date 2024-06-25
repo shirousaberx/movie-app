@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import Search from '../screens/Search'
 import Favorite from '../screens/Favorite'
 import HomeStackNavigator from './HomeStackNavigation'
+import FavoriteStackNavigator from './FavoriteStackNavigation'
 
 const Tab = createBottomTabNavigator()
 
@@ -31,9 +32,10 @@ const BottomTabNavigator = (): JSX.Element => (
       }}
     />
     <Tab.Screen
-      name="Favorite"
-      component={Favorite}
+      name="FavoriteStackNavigation"
+      component={FavoriteStackNavigator}
       options={{
+        title: 'Favorite',
         tabBarIcon: ({ color }) => (
           <Feather name="heart" size={28} color={color} />
         ),

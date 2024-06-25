@@ -1,23 +1,113 @@
 import { API_ACCESS_TOKEN } from '@env'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import { Movie, MovieItemProps } from '../types/app'
+import { Movie, MovieListProps } from '../types/app'
 import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation, StackActions } from '@react-navigation/native'
 import MovieList from '../components/movies/MovieList'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const MovieDetailHeading = ({ movie }: MovieItemProps): JSX.Element => {
+const MovieDetailHeading = ({ movie }): JSX.Element => {
+  const [isFavorite, setIsFavorite] = useState(false)
+
   const navigation = useNavigation()
   const pushAction = StackActions.push('MovieDetail', { id: movie.id })
+
+  useEffect(() => {
+    (async () => {
+      setIsFavorite(await checkIsFavorite(movie.id))
+    })()
+    console.log('Movie Detail useEffect() run')
+  }, [])
+
+  const addFavorite = async (movie: Movie) => {
+    try {
+      const initialData: string | null = await AsyncStorage.getItem(
+        '@FavoriteList'
+      )
+  
+      let favMovieList: Movie[] = []
+      if (initialData !== null) {
+        favMovieList = [...JSON.parse(initialData), movie]
+      } else {
+        favMovieList = [movie]
+      }
+  
+      await AsyncStorage.setItem('@FavoriteList', JSON.stringify(favMovieList))
+      setIsFavorite(true)
+
+      // ================ FOR DEBUGGING ==================
+      let favMovieListId = []
+      for (let i in favMovieList) {
+        favMovieListId.push(favMovieList[i].id)
+      }
+      console.log('ADD movie id: ', movie.id)
+      console.log('ADD favMovieListId: ', favMovieListId)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const removeFavorite = async (movieid: number) => {
+    try {
+      const initialData: string | null = await AsyncStorage.getItem(
+        '@FavoriteList'
+      )
+
+      let favMovieList;
+
+      if (initialData !== null) {
+        favMovieList = JSON.parse(initialData)
+      } else {
+        favMovieList = []
+      }
+
+      const newFavMovieList = favMovieList.filter((favMovieItem: Movie) => {
+        return favMovieItem.id !== movieid;
+      })
+
+      await AsyncStorage.setItem('@FavoriteList', JSON.stringify(newFavMovieList))
+      setIsFavorite(false)
+
+      // ================ FOR DEBUGGING ==================
+      let favMovieListId = []
+      for (let i in newFavMovieList) {
+        favMovieListId.push(newFavMovieList[i].id)
+      }
+      console.log('DELETE movie id: ', movie.id)
+      console.log('DELETE favMovieListId: ', favMovieListId)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const checkIsFavorite = async (movieId: number) => {
+    const initialData: string | null = await AsyncStorage.getItem(
+      '@FavoriteList'
+    )
+
+    if (initialData !== null) {
+      const favMovieList = JSON.parse(initialData)
+
+      for (let i in favMovieList) {
+        if (favMovieList[i].id === movieId) {
+          console.log('checkIsFavorite: ', true)
+          return true;
+        }
+      }
+    }
+
+    console.log('checkIsFavorite: ' , false)
+    return false;
+  }
 
   const styles = StyleSheet.create({
     backgroundImage: {
       width: '100%',
       height: 200,
-    },
-    backgroundImageStyle: {
-
     },
     movieTitle: {
       color: 'white',
@@ -29,8 +119,25 @@ const MovieDetailHeading = ({ movie }: MovieItemProps): JSX.Element => {
       width: '100%',
       display: 'flex',
       justifyContent: 'flex-end',
+      flexWrap: 'wrap',
     },
-    ratingContainer: {
+    rateFavContainer: {  // double columns container
+      marginTop: 13,
+      flex: 0,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignContent: 'flex-start',
+    },
+    ratingWrapper: {  // double columns item
+      width: '80%', 
+      gap: 5,
+    },
+    favoriteWrapper: {   // double columns item
+      width: '20%', 
+      justifyContent: 'flex-end', 
+      alignItems: 'flex-end',
+    },
+    starContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
@@ -43,16 +150,15 @@ const MovieDetailHeading = ({ movie }: MovieItemProps): JSX.Element => {
     overviewContainer: {
       padding: 20,
     },
-    doubleColumnsContainer: {
+    infoContainer: {  // double columns container
       marginTop: 13,
-      flex: 1,
+      flex: 0,
       flexDirection: 'row',
       flexWrap: 'wrap',
       alignContent: 'flex-start',
     },
-    doubleColumnsItem: {
-      width: '50%',
-      height: 100,
+    infoItem: {   // double columns item
+      flex: 1,
       gap: 10,
     },
     fontBold: {
@@ -70,7 +176,6 @@ const MovieDetailHeading = ({ movie }: MovieItemProps): JSX.Element => {
         <ImageBackground
           resizeMode="cover"
           style={styles.backgroundImage}
-          imageStyle={styles.backgroundImageStyle}
           source={{
             uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
           }}
@@ -80,24 +185,34 @@ const MovieDetailHeading = ({ movie }: MovieItemProps): JSX.Element => {
             locations={[0.6, 0.8]}
             style={styles.gradientStyle}
           >
-            <Text style={styles.movieTitle}>{movie.title}</Text>
-            <View style={styles.ratingContainer}>
-              <FontAwesome name="star" size={16} color="yellow" />
-              <Text style={styles.rating}>{movie.vote_average.toFixed(1)}</Text>
+            <View style={styles.rateFavContainer}>
+              <View style={styles.ratingWrapper}>
+                <Text style={styles.movieTitle}>{movie.title}</Text>
+                <View style={styles.starContainer}>
+                  <FontAwesome name="star" size={16} color="yellow" />
+                  <Text style={styles.rating}>{movie.vote_average.toFixed(1)}</Text>
+                </View>
+              </View>
+              <TouchableOpacity 
+                style={styles.favoriteWrapper}
+                onPress={() => { isFavorite ? removeFavorite(movie.id) : addFavorite(movie) }}
+              >
+                <FontAwesome name={ isFavorite ? "heart" : "heart-o" } size={32} color="red" />
+              </TouchableOpacity>
             </View>
           </LinearGradient>
         </ImageBackground>
       </View>
       <View style={styles.overviewContainer}>
         <Text>{movie.overview}</Text>
-        <View style={styles.doubleColumnsContainer}>
-          <View style={styles.doubleColumnsItem}>
+        <View style={[styles.infoContainer, { marginTop: 13 }]}>
+          <View style={styles.infoItem}>
             <Text style={styles.fontBold}>Original Language</Text>
             <Text>{movie.original_language}</Text>
             <Text style={styles.fontBold}>Release Date</Text>
             <Text>{movie.release_date}</Text>
           </View>
-          <View style={styles.doubleColumnsItem}>
+          <View style={styles.infoItem}>
             <Text style={styles.fontBold}>Popularity</Text>
             <Text>{movie.popularity}</Text>
             <Text style={styles.fontBold}>Vote Count</Text>
@@ -114,7 +229,6 @@ const MovieDetail = ({ route }: any): JSX.Element => {
   const [movieDetail, setMovieDetail] = useState()
   
   useEffect(() => {
-    console.log('id: ', id)
     getMovieDetail()
   }, [])
   
@@ -138,7 +252,7 @@ const MovieDetail = ({ route }: any): JSX.Element => {
       })
   }
 
-  const recommendationProp = {
+  const recommendationProp: MovieListProps = {
     title: 'Recommendations',
     path: `movie/${id}/recommendations?language=en-US&page=1`,
     coverType: 'poster',

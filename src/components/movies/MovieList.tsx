@@ -48,7 +48,7 @@ const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
         <View style={styles.purpleLabel}></View>
         <Text style={styles.title}>{title}</Text>
       </View>
-      {/* Tambahkan code di bawah ini */}
+
       <FlatList
         style={{
           ...styles.movieList,
@@ -62,6 +62,7 @@ const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
             movie={item}
             size={coverImageSize[coverType]}
             coverType={coverType}
+            backgroundImageStyle={{ marginLeft: 4, }}
           />
         )}
         keyExtractor={(item) => item.id.toString()}

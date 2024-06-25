@@ -1,17 +1,17 @@
 import React from 'react'
 import { Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Home from '../screens/Home';
 import MovieDetail from '../screens/MovieDetail';
+import Favorite from '../screens/Favorite';
 
 const Stack = createNativeStackNavigator();
 
-const HomeStackNavigator = () => {
+const FavoriteStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName='Home'>
+    <Stack.Navigator initialRouteName='Favorite'>
       <Stack.Screen 
         name="Home" 
-        component={Home} 
+        component={Favorite} 
         options={{
           headerShown: false
         }}
@@ -27,4 +27,4 @@ const HomeStackNavigator = () => {
   )
 }
 
-export default HomeStackNavigator;
+export default FavoriteStackNavigator;
