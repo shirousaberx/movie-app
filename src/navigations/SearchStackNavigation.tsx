@@ -1,16 +1,17 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Search from '../screens/Search';
+import CategorySearchResult from '../components/search/CategorySearch';
 import MovieDetail from '../screens/MovieDetail';
-import Favorite from '../screens/Favorite';
 
 const Stack = createNativeStackNavigator();
 
-const FavoriteStackNavigator = () => {
+const SearchStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName='Favorite'>
+    <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen 
-        name="Home" 
-        component={Favorite} 
+        name="Search" 
+        component={Search} 
         options={{
           headerShown: false
         }}
@@ -22,8 +23,15 @@ const FavoriteStackNavigator = () => {
           title: 'Movie Detail',
         }}
       />
+      <Stack.Screen 
+        name="CategorySearchResult" 
+        component={CategorySearchResult} 
+        options={{
+          title: 'Category Search Result',
+        }}
+      />
     </Stack.Navigator>
   )
 }
 
-export default FavoriteStackNavigator;
+export default SearchStackNavigator;
