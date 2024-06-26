@@ -9,7 +9,7 @@ const Search = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topBarContainer}>
-        {['keyword', 'category'].map((item: string, index: number) => (
+        {['keyword', 'category'].map((item, index) => (
           <TouchableOpacity
             key={item}
             activeOpacity={0.9}

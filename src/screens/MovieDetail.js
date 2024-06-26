@@ -62,7 +62,7 @@ const MovieDetailHeading = ({ movie }) => {
         favMovieList = []
       }
 
-      const newFavMovieList = favMovieList.filter((favMovieItem: Movie) => {
+      const newFavMovieList = favMovieList.filter((favMovieItem) => {
         return favMovieItem.id !== movieid;
       })
 
@@ -82,7 +82,7 @@ const MovieDetailHeading = ({ movie }) => {
     }
   }
 
-  const checkIsFavorite = async (movieId: number) => {
+  const checkIsFavorite = async (movieId) => {
     const initialData = await AsyncStorage.getItem(
       '@FavoriteList'
     )

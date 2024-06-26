@@ -20,7 +20,7 @@ const MovieList = ({ title, path, coverType }) => {
     getMovieList()
   }, [])
 
-  const getMovieList = (): void => {
+  const getMovieList = () => {
     const url = `https://api.themoviedb.org/3/${path}`
     const options = {
       method: 'GET',
