@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
-import type { MovieListProps, Movie } from '../../types/app'
 import MovieItem from './MovieItem'
 
 const coverImageSize = {
@@ -14,14 +13,14 @@ const coverImageSize = {
   },
 }
 
-const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
-  const [movies, setMovies] = useState<Movie[]>([])
+const MovieList = ({ title, path, coverType }) => {
+  const [movies, setMovies] = useState([])
 
   useEffect(() => {
     getMovieList()
   }, [])
 
-  const getMovieList = (): void => {
+  const getMovieList = () => {
     const url = `https://api.themoviedb.org/3/${path}`
     const options = {
       method: 'GET',

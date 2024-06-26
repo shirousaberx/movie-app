@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import { Movie, MovieListProps } from '../types/app'
 import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation, StackActions } from '@react-navigation/native'
 import MovieList from '../components/movies/MovieList'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const MovieDetailHeading = ({ movie }): JSX.Element => {
+const MovieDetailHeading = ({ movie }) => {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const navigation = useNavigation()
@@ -20,13 +19,13 @@ const MovieDetailHeading = ({ movie }): JSX.Element => {
     console.log('Movie Detail useEffect() run')
   }, [])
 
-  const addFavorite = async (movie: Movie) => {
+  const addFavorite = async (movie) => {
     try {
-      const initialData: string | null = await AsyncStorage.getItem(
+      const initialData = await AsyncStorage.getItem(
         '@FavoriteList'
       )
   
-      let favMovieList: Movie[] = []
+      let favMovieList = []
       if (initialData !== null) {
         favMovieList = [...JSON.parse(initialData), movie]
       } else {
@@ -49,9 +48,9 @@ const MovieDetailHeading = ({ movie }): JSX.Element => {
     }
   }
 
-  const removeFavorite = async (movieid: number) => {
+  const removeFavorite = async (movieid) => {
     try {
-      const initialData: string | null = await AsyncStorage.getItem(
+      const initialData = await AsyncStorage.getItem(
         '@FavoriteList'
       )
 
@@ -63,7 +62,7 @@ const MovieDetailHeading = ({ movie }): JSX.Element => {
         favMovieList = []
       }
 
-      const newFavMovieList = favMovieList.filter((favMovieItem: Movie) => {
+      const newFavMovieList = favMovieList.filter((favMovieItem) => {
         return favMovieItem.id !== movieid;
       })
 
@@ -83,8 +82,8 @@ const MovieDetailHeading = ({ movie }): JSX.Element => {
     }
   }
 
-  const checkIsFavorite = async (movieId: number) => {
-    const initialData: string | null = await AsyncStorage.getItem(
+  const checkIsFavorite = async (movieId) => {
+    const initialData = await AsyncStorage.getItem(
       '@FavoriteList'
     )
 
@@ -223,7 +222,7 @@ const MovieDetailHeading = ({ movie }): JSX.Element => {
   )
 }
 
-const MovieDetail = ({ route }: any): JSX.Element => {
+const MovieDetail = ({ route }) => {
   const { id } = route.params
   const [movieDetail, setMovieDetail] = useState()
   
@@ -251,7 +250,7 @@ const MovieDetail = ({ route }: any): JSX.Element => {
       })
   }
 
-  const recommendationProp: MovieListProps = {
+  const recommendationProp = {
     title: 'Recommendations',
     path: `movie/${id}/recommendations?language=en-US&page=1`,
     coverType: 'poster',

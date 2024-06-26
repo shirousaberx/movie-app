@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import KeywordSearch from '../components/search/KeywordSearch'
 import CategorySearch from '../components/search/CategorySearch'
 
-const Search = (): JSX.Element => {
-  const [selectedBar, setSelectedBar] = useState<string>('keyword')
+const Search = () => {
+  const [selectedBar, setSelectedBar] = useState('keyword')
 
   return (
     <View style={styles.container}>
       <View style={styles.topBarContainer}>
-        {['keyword', 'category'].map((item: string, index: number) => (
+        {['keyword', 'category'].map((item, index) => (
           <TouchableOpacity
             key={item}
             activeOpacity={0.9}
