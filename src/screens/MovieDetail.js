@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useNavigation, StackActions } from '@react-navigation/native'
+import { useNavigation, useFocusEffect, StackActions } from '@react-navigation/native'
 import MovieList from '../components/movies/MovieList'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const MovieDetailHeading = ({ movie }) => {
   const [isFavorite, setIsFavorite] = useState(false)
 
-  const navigation = useNavigation()
-  const pushAction = StackActions.push('MovieDetail', { id: movie.id })
+  const imageExists = Boolean(movie.backdrop_path) 
+  const defaultImageUri = 'https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ='
 
-  useEffect(() => {
-    (async () => {
-      setIsFavorite(await checkIsFavorite(movie.id))
-    })()
-    console.log('Movie Detail useEffect() run')
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      (async() => setIsFavorite(await checkIsFavorite(movie.id)))()
+      console.log('Movie Detail useEffect() run')
+    }, [])
+  )
 
   const addFavorite = async (movie) => {
     try {
@@ -175,7 +175,8 @@ const MovieDetailHeading = ({ movie }) => {
           resizeMode="cover"
           style={styles.backgroundImage}
           source={{
-            uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
+            uri: imageExists ? 
+              `https://image.tmdb.org/t/p/w500${movie.backdrop_path}` : defaultImageUri,
           }}
         >
           <LinearGradient

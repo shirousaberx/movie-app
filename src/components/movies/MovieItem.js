@@ -8,6 +8,9 @@ const MovieItem = ({ movie, size, coverType, backgroundImageStyle }) => {
   const navigation = useNavigation()
   const pushAction = StackActions.push('MovieDetail', { id: movie.id })
   
+  const imageExists = Boolean(movie.backdrop_path) || Boolean(movie.poster_path)
+  const defaultImageUri = 'https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ='
+
   const styles = StyleSheet.create({
     backgroundImage: {
       ...backgroundImageStyle
@@ -48,9 +51,9 @@ const MovieItem = ({ movie, size, coverType, backgroundImageStyle }) => {
         style={[size, styles.backgroundImage]}
         imageStyle={styles.backgroundImageStyle}
         source={{
-          uri: `https://image.tmdb.org/t/p/w500${
+          uri: imageExists ? `https://image.tmdb.org/t/p/w500${
             coverType === 'backdrop' ? movie.backdrop_path : movie.poster_path
-          }`,
+          }` : defaultImageUri,
         }}
       >
         <LinearGradient

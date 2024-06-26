@@ -9,7 +9,7 @@ const FavoriteStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName='Favorite'>
       <Stack.Screen 
-        name="Home" 
+        name="Favorite" 
         component={Favorite} 
         options={{
           headerShown: false

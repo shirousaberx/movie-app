@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native'
-import MovieItem from '../movies/MovieItem'
+import MovieItem from '../components/movies/MovieItem'
 
 const posterImageSize = {
   width: 100,

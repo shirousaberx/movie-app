@@ -1,14 +1,14 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Search from '../screens/Search';
-import CategorySearchResult from '../components/search/CategorySearchResult';
+import CategorySearchResult from '../screens/CategorySearchResult';
 import MovieDetail from '../screens/MovieDetail';
 
 const Stack = createNativeStackNavigator();
 
 const SearchStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName='Home'>
+    <Stack.Navigator initialRouteName='Search'>
       <Stack.Screen 
         name="Search" 
         component={Search} 
