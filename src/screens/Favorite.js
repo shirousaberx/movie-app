@@ -9,7 +9,7 @@ const posterImageSize = {
   height: 160,
 }
 
-const Favorite = (): JSX.Element => {
+const Favorite = () => {
   const [movieList, setMovieList] =  useState([])
   const [favoriteExists, setFavoriteExists] = useState(false)
 

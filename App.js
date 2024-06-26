@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import BottomTabNavigator from './src/navigations/BottomTabNavigation'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function App(): JSX.Element {
+export default function App() {
   const clearAll = async () => {
     try {
       await AsyncStorage.clear()

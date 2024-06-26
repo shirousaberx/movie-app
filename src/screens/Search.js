@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import KeywordSearch from '../components/search/KeywordSearch'
 import CategorySearch from '../components/search/CategorySearch'
 
-const Search = (): JSX.Element => {
-  const [selectedBar, setSelectedBar] = useState<string>('keyword')
+const Search = () => {
+  const [selectedBar, setSelectedBar] = useState('keyword')
 
   return (
     <View style={styles.container}>
