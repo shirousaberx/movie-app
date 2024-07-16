@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "project-movie-app",
-    "slug": "project-movie-app",
+    "slug": "movie-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +23,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c43f9198-3401-44b3-b4c8-3696186c5e6e"
+      }
+    },
+    "owner": "shirousaber"
   }
 }
